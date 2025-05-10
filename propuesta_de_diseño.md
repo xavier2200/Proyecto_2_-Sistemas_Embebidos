@@ -68,6 +68,10 @@ Sufijo Categoría:
 
 ## Arquitectura del sistema propuesto
 
+### Diagrama del sistema:
+
+![image](./fig/Arquitectura_del_sistema_propuesto.png)
+
 ## Análisis de dependencias
 
 ## Estrategia de integración de la solución
