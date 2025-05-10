@@ -113,7 +113,6 @@ Vamos a adoptar una metodología de integración incremental y basada en compone
 
 ### Fases de Integración Hardware-Software
 
-**Nota:** 0.2 semanas equivale a un día de trabajo
 
 Fase 1: Preparación de la Plataforma Base
 
