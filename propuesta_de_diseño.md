@@ -101,6 +101,112 @@ meta-facial-detection
 
 ## Estrategia de integración de la solución
 
+Vamos a adoptar una metodología de integración incremental y basada en componentes, siguiendo estos principios:
+
+- Desarrollo modular: cada componente se desarrolla y prueba independientemente.
+
+- Integración progresiva: Comenzando por componentes básicos hacia sistemas complejos.
+
+- Verificación continua: Cada paso de integración incluye pruebas funcionales.
+
+- Enfoque bottom-up: Construyendo desde el hardware básico hasta la aplicación completa
+
+### Fases de Integración Hardware-Software
+
+**Nota:** 0.2 semanas equivale a un día de trabajo
+
+Fase 1: Preparación de la Plataforma Base
+
+- Configuración de la Raspberry Pi con sistema operativo temporal para desarrollo
+- Preparación del entorno Yocto y configuración de capas base
+- Pruebas iniciales de conexión con cámara IR y verificación de funcionamiento básico
+
+Fase 2: Desarrollo del Sistema Operativo Embebido
+
+- Compilación de imagen Yocto personalizada con dependencias esenciales
+- Integración de drivers optimizados para cámara y hardware específico
+- Pruebas de arranque y estabilidad del sistema operativo base
+
+Fase 3: Implementación de Componentes de Software
+
+- Integración de OpenCV y bibliotecas de procesamiento de imágenes
+- Implementación de TensorFlow Lite y modelos de clasificación emocional
+- Desarrollo de interfaces de comunicación y almacenamiento local
+
+Fase 4: Integración Hardware Completa
+
+- Integración de componentes ópticos (iluminación IR, filtros) con el sistema de cámara
+
+Fase 5: Integración y Pruebas del Sistema Completo
+
+- Ensamblaje final de unidades de hardware con software
+- Configuración de red entre nodos y servidor central
+- Pruebas integrales del sistema en entorno simulado
+
+### Diagrama de Integración del Sistema
+```
+                  ┌─────────────────────────────────────┐
+                  │  PROCESO DE INTEGRACIÓN DEL SISTEMA │
+                  └─────────────────────────────────────┘
+                                   │
+     ┌────────────────────┬────────┴───────────┬─────────────────────┐
+     ▼                    ▼                    ▼                     ▼
+┌──────────┐      ┌───────────────┐    ┌─────────────┐      ┌──────────────┐
+│ HARDWARE │      │ SISTEMA       │    │ SOFTWARE    │      │ DESPLIEGUE   │
+│ BASE     │      │ OPERATIVO     │    │ APLICATIVO  │      │ Y PRUEBAS    │
+└──────────┘      └───────────────┘    └─────────────┘      └──────────────┘
+     │                    │                    │                     │
+     ▼                    ▼                    ▼                     ▼
+┌──────────┐      ┌───────────────┐    ┌─────────────┐      ┌──────────────┐
+│• RPi 5   │      │• Yocto Linux  │    │• OpenCV     │      │• Integración │
+│• Cámara  │─────►│• Drivers      │───►│• TensorFlow │─────►│  física      │
+│• PoE HAT │      │• Boot config  │    │• APIs       │      │• Calibración │
+└──────────┘      └───────────────┘    └─────────────┘      └──────────────┘
+```
+
+### Estrategias de Prueba y Verificación
+Para cada fase de integración, implementaremos las siguientes estrategias de verificación:
+
+- Pruebas unitarias: Verificación de cada componente individual
+
+    - Prueba de cámara y captura de imagen
+    - Verificación de detección de emociones
+    - Evaluación de la precisión de clasificación emocional
+
+
+- Pruebas de integración: Verificación de la interacción entre componentes
+
+    - Pipeline completo desde captura hasta clasificación
+    - Comunicación entre nodos y servidor
+    - Gestión de recursos del sistema
+
+
+- Pruebas de sistema: Verificación del sistema completo
+
+    - Operación en condiciones simuladas de sala de cine
+    - Pruebas de carga con múltiples nodos
+    - Escenarios de recuperación ante fallos
+
+### Plan de Despliegue Final
+
+- Instalación física:
+
+    - Montaje de nodos en respaldares de asientos
+
+
+- Configuración y calibración:
+
+    - Ajuste de parámetros de captura según condiciones de iluminación
+    - Calibración de modelos para población específica
+    - Sincronización de toda la red de nodos
+
+
+- Validación operativa:
+
+    - Prueba piloto con grupo reducido de asientos
+    - Monitoreo de rendimiento y precisión
+    - Recopilación de retroalimentación para ajustes
+
 ## Planeamiento de la ejecución
 
 ## Conclusiones
