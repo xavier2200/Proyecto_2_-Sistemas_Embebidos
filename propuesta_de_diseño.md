@@ -1,6 +1,11 @@
 # Propuesta de diseño
 
 ##  Justificación del proyecto y revisión bibliográfica
+El análisis emocional del público durante una proyección cinematográfica es una herramienta vde recolección de información importante para evaluar el impacto narrativo, la eficacia de escenas clave y la experiencia general del espectador. Sin embargo, los métodos tradicionales como encuestas o entrevistas presentan limitaciones significativas como estár sujetos a sesgos conscientes o inconscientes, carecer de correlación temporal precisa entre el estímulo y la respuesta emocional, y no capturar reacciones espontáneas.
+
+Ante esta problemática, el desarrollo de un sistema no intrusivo de análisis facial automático capaz de detectar y clasificar, en tiempo real y con alta precisión, las emociones de los espectadores durante una función de cine adquiere gran relevancia. Además, el sistema está diseñado como una red de nodos autónomos, lo que garantiza escalabilidad, modularidad y recolección eficiente de datos sin afectar la experiencia del espectador. 
+
+En consecuencia, este proyecto no solo responde a una necesidad tecnológica emergente, sino que también representa una innovación sustancial en la forma en que se estudia la interacción entre el espectador y el medio audiovisual.
 
 ## Descripción y síntesis del problema
 
