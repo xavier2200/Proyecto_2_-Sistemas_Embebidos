@@ -3,4 +3,4 @@
 ## 07 de mayo, 2025
 
 - Agrego una descripción y síntesis del problema
-- 
+- Agrego la gestion de requerimientos
