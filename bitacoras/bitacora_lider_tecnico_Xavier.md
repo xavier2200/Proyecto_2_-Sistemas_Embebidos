@@ -5,4 +5,4 @@
 - Agrego una descripción y síntesis del problema
 - Agrego la gestion de requerimientos
 - Agrego la arquitectura para el sistema propuesto
-- 
+- Agrego el analisis de dependencias
