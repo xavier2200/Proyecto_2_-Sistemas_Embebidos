@@ -74,6 +74,31 @@ Sufijo Categoría:
 
 ## Análisis de dependencias
 
+### Meta-layers necesarias a nivel de yocto:
+- meta-poky: Capa base de Yocto Project con funcionalidad esencial
+- meta-raspberrypi: Agrega soporte para la Raspberry Pi 5
+- meta-openembedded/meta-oe: Proporciona componentes adicionales para sistemas embebidos
+- meta-openembedded/meta-networking: Agrega soporte para las conexiones a internet
+- meta-openembedded/meta-python: Agrega soporte básico para Python
+- meta-openembedded/meta-multimedia: Proporciona soporte para cámaras y procesamiento multimedia
+- meta-tensorflow-lite: Agrega soporte para TensorFlow Lite y sus dependencias
+- meta-opencv: Proporciona soporte para OpenCV y bibliotecas de visión por computador
+- meta-facial-detection (capa personalizada): Capa propia para la aplicación de análisis facial
+
+### Árbol de dependencias:
+```
+meta-facial-detection
+├── meta-opencv
+│   └── meta-openembedded/meta-multimedia
+├── meta-tensorflow-lite
+│   ├── meta-openembedded/meta-python
+│   └── meta-openembedded/meta-oe
+├── meta-raspberrypi
+│   └── meta-poky
+├── meta-openembedded/meta-networking
+└── meta-poky
+```
+
 ## Estrategia de integración de la solución
 
 ## Planeamiento de la ejecución
