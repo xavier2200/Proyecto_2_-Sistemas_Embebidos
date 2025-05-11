@@ -290,103 +290,64 @@ Para cada fase de integración, implementaremos las siguientes estrategias de ve
 ## Planeamiento de la ejecución
 
 Fase 1: Preparación del Entorno de Desarrollo
+
 Actividades:
 
-Selección de hardware (RPi 5, cámaras IR, PoE, disipadores, carcasa).
+   Selección de hardware (RPi 5, cámaras IR, PoE, disipadores, carcasa).
 
-Configuración inicial de Raspberry Pi con sistema operativo de desarrollo.
+   Configuración inicial de Raspberry Pi con sistema operativo de desarrollo.
 
-Instalación de herramientas necesarias: compilador Yocto, SDKs, Git, etc.
+   Instalación de herramientas necesarias: compilador Yocto, SDKs, Git, etc.
 
-Clonación y organización de las meta-layers Yocto necesarias.
+   Clonación y organización de las meta-layers Yocto necesarias.
 
 Fase 2: Desarrollo del Sistema Operativo Embebido
-Duración estimada: 3 semanas
+
 Actividades:
 
-Personalización de la imagen Yocto para Raspberry Pi.
+   Personalización de la imagen Yocto para Raspberry Pi.
 
-Integración de meta-layers: meta-raspberrypi, meta-tensorflow-lite, meta-opencv, etc.
+   Integración de meta-layers: meta-raspberrypi, meta-tensorflow-lite, meta-opencv, etc.
 
-Soporte para drivers de cámara IR y comunicación por red.
-
-Validación del arranque y estabilidad del sistema.
-
-Entregables:
-
-Imagen Linux personalizada y funcional para el hardware objetivo.
+   Soporte para drivers de cámara IR y comunicación por red.
+   
+   Validación del arranque y estabilidad del sistema.
 
 Fase 3: Desarrollo e Integración de Componentes de Software
-Duración estimada: 4 semanas
+
 Actividades:
 
-Implementación de la detección de rostros con OpenCV.
+   Implementación de la detección de rostros con OpenCV.
 
-Integración de modelo de clasificación emocional en TensorFlow Lite.
+   Integración de modelo de clasificación emocional en TensorFlow Lite.
 
-Codificación de lógica de captura y etiquetado de metadatos.
+   Codificación de lógica de captura y etiquetado de metadatos.
 
-Desarrollo de interfaces de comunicación remota (SSH, base de datos).
+   Desarrollo de interfaces de comunicación remota (SSH, base de datos).
 
-Pruebas de inferencia en condiciones controladas.
-
-Entregables:
-
-Software de análisis facial funcional en nodo.
-
-Módulo de comunicación de metadatos al servidor central.
+   Pruebas de inferencia en condiciones controladas.
 
 Fase 4: Integración Hardware y Ajustes Ópticos
-Duración estimada: 2 semanas
+
 Actividades:
 
-Ensamblaje de carcasa, cámara, iluminación IR y disipadores.
+   Ensamblaje de carcasa, cámara, iluminación.
 
-Instalación en respaldos de asientos simulados o reales.
+   Instalación en respaldos de asientos simulados o reales.
 
-Ajuste de ángulos de cámara y calibración inicial.
-
-Validación de condiciones térmicas y consumo eléctrico.
-
-Entregables:
-
-Nodos integrados físicamente, listos para despliegue.
+   Ajuste de ángulos de cámara y calibración inicial.
 
 Fase 5: Validación y Pruebas del Sistema Completo
-Duración estimada: 3 semanas
+
 Actividades:
 
-Pruebas en entorno simulado de cine (condiciones reales de luz y sonido).
+   Pruebas en entorno simulado de cine (condiciones reales de luz y sonido).
 
-Validación de precisión de emociones detectadas.
+   Validación de precisión de emociones detectadas.
 
-Pruebas de red entre múltiples nodos y servidor.
 
-Evaluación de latencia y estabilidad durante operación continua.
 
-Entregables:
 
-Informe de pruebas funcionales.
-
-Ajustes finales según retroalimentación.
-
-Fase 6: Despliegue Piloto
-Duración estimada: 2 semanas
-Actividades:
-
-Instalación en una sección limitada de una sala de cine real.
-
-Operación del sistema durante funciones reales.
-
-Recolección de datos y retroalimentación.
-
-Correcciones menores en software o hardware.
-
-Entregables:
-
-Validación operativa en entorno real.
-
-Plan de escalado a mayor número de nodos.
 
 
 ## Conclusiones
