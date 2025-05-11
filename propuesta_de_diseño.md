@@ -72,37 +72,40 @@ Sufijo Categoría:
 La vista operacional del sistema describe cómo se comporta el sistema en su entorno real, es decir, dentro de una sala de cine, considerando su funcionamiento diario, su mantenimiento y su proceso de instalación:
 
 1. Operación
+   
    El sistema opera de forma autónoma durante la proyección de la película, ejecutando las siguientes funciones:
 
-    -Captura continua de imágenes faciales mediante cámaras infrarrojas camufladas en los respaldos de los asientos.
+      1.1 Captura continua de imágenes faciales mediante cámaras infrarrojas camufladas en los respaldos de los asientos.
 
-    -Procesamiento local en dispositivos Raspberry Pi 5, donde se detectan rostros y se clasifican emociones en tiempo real.
+      1.2 Procesamiento local en dispositivos Raspberry Pi 5, donde se detectan rostros y se clasifican emociones en tiempo real.
 
-    -Generación y almacenamiento de metadatos (emoción, tiempo, ubicación) con marcas temporales precisas y sin almacenar imágenes originales, garantizando la privacidad.
+      1.3 Generación y almacenamiento de metadatos (emoción, tiempo, ubicación) con marcas temporales precisas y sin almacenar imágenes originales, garantizando la privacidad.
 
-    -Transmisión de metadatos al servidor central, donde se pueden consolidar, analizar y visualizar los resultados de múltiples nodos.
+      1.4 Transmisión de metadatos al servidor central, donde se pueden consolidar, analizar y visualizar los resultados de múltiples nodos.
 
 2. Mantenimiento
-  Para garantizar un funcionamiento estable y continuo del sistema, se contempla:
+   
+   Para garantizar un funcionamiento estable y continuo del sistema, se contempla:
 
-    -Monitoreo remoto de cada nodo a través de SSH, lo que permite actualizaciones, reinicios o diagnósticos sin intervención física.
+      2.1 Monitoreo remoto de cada nodo a través de SSH, lo que permite actualizaciones, reinicios o diagnósticos sin intervención física.
 
-    -Indicadores LED de estado en cada unidad para facilitar la identificación de errores o fallas en campo.
+      2.2 Indicadores LED de estado en cada unidad para facilitar la identificación de errores o fallas en campo.
 
-    -Reinicio seguro mediante botón físico, útil en casos de congelamiento o mal funcionamiento local.
+      2.3 Reinicio seguro mediante botón físico, útil en casos de congelamiento o mal funcionamiento local.
 
-    -Verificación periódica de temperatura y rendimiento para prevenir sobrecalentamientos o fallos por exceso de carga.
+      2.4 Verificación periódica de temperatura y rendimiento para prevenir sobrecalentamientos o fallos por exceso de carga.
 
 3. Instalación
-  El proceso de instalación inicial considera:
+   
+   El proceso de instalación inicial considera:
 
-    -Montaje físico de los nodos en los respaldos de los asientos, usando estructuras removibles que soportan al menos 5 kg de fuerza.
+      3.1 Montaje físico de los nodos en los respaldos de los asientos, usando estructuras removibles que soportan al menos 5 kg de fuerza.
 
-    -Ajuste óptico de cámaras, con mecanismos de inclinación vertical y horizontal para adaptar el ángulo de captura según la geometría de la sala.
+      3.2 Ajuste óptico de cámaras, con mecanismos de inclinación vertical y horizontal para adaptar el ángulo de captura según la geometría de la sala.
 
-    -Configuración de red PoE (Power over Ethernet), que simplifica la alimentación eléctrica y la conectividad con un solo cable.
+      3.3 Configuración de red PoE (Power over Ethernet), que simplifica la alimentación eléctrica y la conectividad con un solo cable.
 
-    -Calibración del sistema en función de las condiciones lumínicas reales del cine y validación de la precisión de los modelos con datos de prueba.
+      3.4 Calibración del sistema en función de las condiciones lumínicas reales del cine y validación de la precisión de los modelos con datos de prueba.
 
 ## Vista funcional del sistema
 
@@ -280,5 +283,105 @@ Para cada fase de integración, implementaremos las siguientes estrategias de ve
     - Recopilación de retroalimentación para ajustes
 
 ## Planeamiento de la ejecución
+
+Fase 1: Preparación del Entorno de Desarrollo
+Actividades:
+
+Selección de hardware (RPi 5, cámaras IR, PoE, disipadores, carcasa).
+
+Configuración inicial de Raspberry Pi con sistema operativo de desarrollo.
+
+Instalación de herramientas necesarias: compilador Yocto, SDKs, Git, etc.
+
+Clonación y organización de las meta-layers Yocto necesarias.
+
+Fase 2: Desarrollo del Sistema Operativo Embebido
+Duración estimada: 3 semanas
+Actividades:
+
+Personalización de la imagen Yocto para Raspberry Pi.
+
+Integración de meta-layers: meta-raspberrypi, meta-tensorflow-lite, meta-opencv, etc.
+
+Soporte para drivers de cámara IR y comunicación por red.
+
+Validación del arranque y estabilidad del sistema.
+
+Entregables:
+
+Imagen Linux personalizada y funcional para el hardware objetivo.
+
+Fase 3: Desarrollo e Integración de Componentes de Software
+Duración estimada: 4 semanas
+Actividades:
+
+Implementación de la detección de rostros con OpenCV.
+
+Integración de modelo de clasificación emocional en TensorFlow Lite.
+
+Codificación de lógica de captura y etiquetado de metadatos.
+
+Desarrollo de interfaces de comunicación remota (SSH, base de datos).
+
+Pruebas de inferencia en condiciones controladas.
+
+Entregables:
+
+Software de análisis facial funcional en nodo.
+
+Módulo de comunicación de metadatos al servidor central.
+
+Fase 4: Integración Hardware y Ajustes Ópticos
+Duración estimada: 2 semanas
+Actividades:
+
+Ensamblaje de carcasa, cámara, iluminación IR y disipadores.
+
+Instalación en respaldos de asientos simulados o reales.
+
+Ajuste de ángulos de cámara y calibración inicial.
+
+Validación de condiciones térmicas y consumo eléctrico.
+
+Entregables:
+
+Nodos integrados físicamente, listos para despliegue.
+
+Fase 5: Validación y Pruebas del Sistema Completo
+Duración estimada: 3 semanas
+Actividades:
+
+Pruebas en entorno simulado de cine (condiciones reales de luz y sonido).
+
+Validación de precisión de emociones detectadas.
+
+Pruebas de red entre múltiples nodos y servidor.
+
+Evaluación de latencia y estabilidad durante operación continua.
+
+Entregables:
+
+Informe de pruebas funcionales.
+
+Ajustes finales según retroalimentación.
+
+Fase 6: Despliegue Piloto
+Duración estimada: 2 semanas
+Actividades:
+
+Instalación en una sección limitada de una sala de cine real.
+
+Operación del sistema durante funciones reales.
+
+Recolección de datos y retroalimentación.
+
+Correcciones menores en software o hardware.
+
+Entregables:
+
+Validación operativa en entorno real.
+
+Plan de escalado a mayor número de nodos.
+
 
 ## Conclusiones
