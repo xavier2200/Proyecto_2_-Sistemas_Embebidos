@@ -123,11 +123,11 @@ La vista funcional del sistema representa los componentes principales del sistem
 
    En esta etapa se realiza:
 
-      -Detección de rostros usando OpenCV.
+      2.1 Detección de rostros usando OpenCV.
 
-      -Preprocesamiento de imágenes (recorte, normalización, etc.).
+      2.2 Preprocesamiento de imágenes (recorte, normalización, etc.).
 
-      -Inferencia con TensorFlow Lite para identificar la emoción expresada.
+      2.3 Inferencia con TensorFlow Lite para identificar la emoción expresada.
 
 3. Clasificación emocional
    
