@@ -69,6 +69,41 @@ Sufijo Categoría:
 
 ## Vista operacional del sistema
 
+La vista operacional del sistema describe cómo se comporta el sistema en su entorno real, es decir, dentro de una sala de cine, considerando su funcionamiento diario, su mantenimiento y su proceso de instalación:
+
+1. Operación
+   El sistema opera de forma autónoma durante la proyección de la película, ejecutando las siguientes funciones:
+
+    -Captura continua de imágenes faciales mediante cámaras infrarrojas camufladas en los respaldos de los asientos.
+
+    -Procesamiento local en dispositivos Raspberry Pi 5, donde se detectan rostros y se clasifican emociones en tiempo real.
+
+    -Generación y almacenamiento de metadatos (emoción, tiempo, ubicación) con marcas temporales precisas y sin almacenar imágenes originales, garantizando la privacidad.
+
+    -Transmisión de metadatos al servidor central, donde se pueden consolidar, analizar y visualizar los resultados de múltiples nodos.
+
+2. Mantenimiento
+  Para garantizar un funcionamiento estable y continuo del sistema, se contempla:
+
+    -Monitoreo remoto de cada nodo a través de SSH, lo que permite actualizaciones, reinicios o diagnósticos sin intervención física.
+
+    -Indicadores LED de estado en cada unidad para facilitar la identificación de errores o fallas en campo.
+
+    -Reinicio seguro mediante botón físico, útil en casos de congelamiento o mal funcionamiento local.
+
+    -Verificación periódica de temperatura y rendimiento para prevenir sobrecalentamientos o fallos por exceso de carga.
+
+3. Instalación
+  El proceso de instalación inicial considera:
+
+    -Montaje físico de los nodos en los respaldos de los asientos, usando estructuras removibles que soportan al menos 5 kg de fuerza.
+
+    -Ajuste óptico de cámaras, con mecanismos de inclinación vertical y horizontal para adaptar el ángulo de captura según la geometría de la sala.
+
+    -Configuración de red PoE (Power over Ethernet), que simplifica la alimentación eléctrica y la conectividad con un solo cable.
+
+    -Calibración del sistema en función de las condiciones lumínicas reales del cine y validación de la precisión de los modelos con datos de prueba.
+
 ## Vista funcional del sistema
 
 ## Arquitectura del sistema propuesto
