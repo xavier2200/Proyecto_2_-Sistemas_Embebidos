@@ -346,3 +346,15 @@ Actividades:
    - Validación de precisión de emociones detectadas.
 
 ## Conclusiones
+
+1. Viabilidad técnica y operativa del sistema
+   
+El diseño propuesto demuestra que es factible capturar y analizar emociones en tiempo real dentro de una sala de cine, mediante una arquitectura distribuida basada en Raspberry Pi y técnicas de visión por computador no intrusivas. La elección de tecnologías como TensorFlow Lite y Yocto permite cumplir con los requisitos de precisión, privacidad y rendimiento.
+
+2. Alineación con principios éticos y de usabilidad
+   
+El sistema respeta la privacidad de los espectadores al no almacenar imágenes originales, lo que cumple con criterios éticos en el tratamiento de datos personales. 
+
+3. Enfoque modular y escalable asegura sostenibilidad
+   
+Gracias a su arquitectura modular, integración progresiva y soporte remoto, el sistema puede ser fácilmente adaptado a diferentes salas o escalado a mayor cantidad de nodos. Esto permite actualizaciones continuas, mantenimiento eficiente y evolución futura del sistema sin rediseñar desde cero.
