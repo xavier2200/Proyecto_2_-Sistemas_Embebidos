@@ -112,35 +112,40 @@ La vista operacional del sistema describe cómo se comporta el sistema en su ent
 La vista funcional del sistema representa los componentes principales del sistema y cómo interactúan entre sí para cumplir con el objetivo de capturar y analizar las emociones del público durante una función de cine. Esta vista se centra en qué hace el sistema y cómo fluye la información entre los módulos.
 
 1. Captura de imágenes
-El sistema inicia con cámaras infrarrojas instaladas en los respaldos de los asientos.
+   
+   El sistema inicia con cámaras infrarrojas instaladas en los respaldos de los asientos.
 
-Estas cámaras están diseñadas para capturar rostros en condiciones de baja luz, típicas de una sala de cine.
+   Estas cámaras están diseñadas para capturar rostros en condiciones de baja luz, típicas de una sala de cine.
 
 2. Procesamiento local en el nodo
-Cada cámara está conectada a una unidad de procesamiento local (Raspberry Pi 5) que ejecuta una imagen de Linux embebida (Yocto).
+   
+   Cada cámara está conectada a una unidad de procesamiento local (Raspberry Pi 5) que ejecuta una imagen de Linux embebida (Yocto).
 
-En esta etapa se realiza:
+   En esta etapa se realiza:
 
-   -Detección de rostros usando OpenCV.
+      -Detección de rostros usando OpenCV.
 
-   -Preprocesamiento de imágenes (recorte, normalización, etc.).
+      -Preprocesamiento de imágenes (recorte, normalización, etc.).
 
-   -Inferencia con TensorFlow Lite para identificar la emoción expresada.
+      -Inferencia con TensorFlow Lite para identificar la emoción expresada.
 
 3. Clasificación emocional
-El modelo identifica una de las seis emociones básicas (felicidad, tristeza, enojo, miedo, sorpresa, disgusto) por cada rostro detectado.
+   
+   El modelo identifica una de las seis emociones básicas (felicidad, tristeza, enojo, miedo, sorpresa, disgusto) por cada rostro detectado.
 
-Cada resultado es empaquetado como un metadato emocional con sello de tiempo y ubicación del nodo.
+   Cada resultado es empaquetado como un metadato emocional con sello de tiempo y ubicación del nodo.
 
 4. Almacenamiento y envío de datos
-No se almacenan imágenes. Solo se guardan y/o transmiten los metadatos resultantes.
+   
+   No se almacenan imágenes. Solo se guardan y/o transmiten los metadatos resultantes.
 
-Los datos se envían al servidor central mediante red local (Ethernet con PoE) para análisis posterior.
+   Los datos se envían al servidor central mediante red local (Ethernet con PoE) para análisis posterior.
 
 5. Configuración y monitoreo
-Todo el sistema puede ser configurado y monitoreado de forma remota, permitiendo cambios en parámetros como tasa de muestreo, actualización del modelo, etc.
 
-Esto habilita un control eficiente sin requerir intervención física constante.
+   Todo el sistema puede ser configurado y monitoreado de forma remota, permitiendo cambios en parámetros como tasa de muestreo, actualización del modelo, etc.
+
+   Esto habilita un control eficiente sin requerir intervención física constante.
 
 ## Arquitectura del sistema propuesto
 
