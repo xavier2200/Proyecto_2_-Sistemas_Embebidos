@@ -69,6 +69,8 @@ Sufijo Categoría:
 
 ## Vista operacional del sistema
 
+Diagrama de vista operacional:
+
 ![image](./fig/Vista_operacional.svg)
 
 La vista operacional del sistema describe cómo se comporta el sistema en su entorno real, es decir, dentro de una sala de cine, considerando su funcionamiento diario, su mantenimiento y su proceso de instalación:
@@ -110,6 +112,10 @@ La vista operacional del sistema describe cómo se comporta el sistema en su ent
       3.4 Calibración del sistema en función de las condiciones lumínicas reales del cine y validación de la precisión de los modelos con datos de prueba.
 
 ## Vista funcional del sistema
+
+Diagrama de vista funcional:
+
+![image](./fig/Vista_funcional.svg)
 
 La vista funcional del sistema representa los componentes principales del sistema y cómo interactúan entre sí para cumplir con el objetivo de capturar y analizar las emociones del público durante una función de cine. Esta vista se centra en qué hace el sistema y cómo fluye la información entre los módulos.
 
