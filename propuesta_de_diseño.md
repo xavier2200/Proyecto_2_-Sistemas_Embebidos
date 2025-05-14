@@ -69,7 +69,7 @@ Sufijo Categoría:
 
 ## Vista operacional del sistema
 
-![image](./fig/vista_operacional.svg)
+![image](./fig/Vista_operacional.svg)
 
 La vista operacional del sistema describe cómo se comporta el sistema en su entorno real, es decir, dentro de una sala de cine, considerando su funcionamiento diario, su mantenimiento y su proceso de instalación:
 
