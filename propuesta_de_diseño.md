@@ -115,7 +115,7 @@ La vista operacional del sistema describe cómo se comporta el sistema en su ent
 
 Diagrama de vista funcional:
 
-![image](./fig/Vista_funcional.svg)
+![image](./fig/vista_funcional.svg)
 
 La vista funcional del sistema representa los componentes principales del sistema y cómo interactúan entre sí para cumplir con el objetivo de capturar y analizar las emociones del público durante una función de cine. Esta vista se centra en qué hace el sistema y cómo fluye la información entre los módulos.
 
