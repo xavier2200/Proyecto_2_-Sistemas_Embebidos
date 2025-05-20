@@ -1,5 +1,9 @@
 # Propuesta de diseño
 
+Estudiantes:
+- Xavier Barrios Salazar
+- Julio Casco Murillo
+
 ##  Justificación del proyecto y revisión bibliográfica
 El análisis emocional del público durante una proyección cinematográfica es una herramienta vde recolección de información importante para evaluar el impacto narrativo, la eficacia de escenas clave y la experiencia general del espectador. Sin embargo, los métodos tradicionales como encuestas o entrevistas presentan limitaciones significativas como estár sujetos a sesgos conscientes o inconscientes, carecer de correlación temporal precisa entre el estímulo y la respuesta emocional, y no capturar reacciones espontáneas.
 

@@ -7,3 +7,7 @@
 - Agrego la arquitectura para el sistema propuesto
 - Agrego el analisis de dependencias
 - Agrego la estrategia de integración de la solución
+
+## 20 de mayo, 2025
+
+- Agrego las meta-layers necesarias al proyecto de yocto
