@@ -11,3 +11,9 @@
 ## 20 de mayo, 2025
 
 - Agrego las meta-layers necesarias al proyecto de yocto
+- Cocino la imagen de prueba y bootea exitosamente en la raspberry
+
+## 21 de mayo, 2025
+
+- Agrego el archivo local.conf al repositorio
+- Agrego una carpeta con un meta layer de prueba
