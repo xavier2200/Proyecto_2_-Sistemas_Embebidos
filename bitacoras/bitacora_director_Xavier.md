@@ -19,5 +19,10 @@
 
 ## 20 de mayo, 2025
 
-- Asigno tarea a lider técnico de probar cualquier modelo que use tensorflow lite en lo que se consigue el modelo adecuado.
+- Asigno tarea a lider técnico de probar cualquier modelo que use tensorflow lite que el mismo consiga.
 - Consulto sobre el estado de la busqueda del modelo de deteccion de emociones.
+
+## 21 de mayo, 2025
+
+- Consulto sobre el estado de la busqueda del modelo de deteccion de emociones.
+- Asigno a Julio la tarea de probar los modelos que se encuentre
