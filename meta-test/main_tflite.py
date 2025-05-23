@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Configuration
-MODEL_PATH = 'assets/models/FER_static_ResNet50_AffectNet.tflite'
+MODEL_PATH = './FER_static_ResNet50_AffectNet.tflite'
 EMOTION_LABELS = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
 INPUT_SIZE = (224, 224)
 
