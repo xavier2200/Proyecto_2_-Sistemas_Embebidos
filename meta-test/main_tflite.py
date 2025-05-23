@@ -84,13 +84,13 @@ class EmotionRecognizer:
        return EMOTION_LABELS[emotion_idx], float(confidence)
 
 def process_video(input_path, output_path, emotion_recognizer):
-   cap = cv2.VideoCapture(input_path)
+   cap = cv2.VideoCapture(0)
    fps = int(cap.get(cv2.CAP_PROP_FPS))
    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
    
-   out = cv2.VideoWriter(output_path, cv2.VideoWriter_fourcc(*'mp4v'), 
-                         fps, (width, height))
+#    out = cv2.VideoWriter(output_path, cv2.VideoWriter_fourcc(*'mp4v'), 
+                        #  fps, (width, height))
    
    frame_count = 0
    start_time = time.time()
@@ -110,14 +110,18 @@ def process_video(input_path, output_path, emotion_recognizer):
        cv2.putText(frame, text, (10, 30), 
                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
        
-       out.write(frame)
+       #out.write(frame)
+       cv2.imshow('Emotions', frame)
+
+       if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
        
        # Progress logging
        if frame_count % 10 == 0:
            logger.info(f"Processing frame {frame_count}")
    
    cap.release()
-   out.release()
+   #out.release()
    
    duration = time.time() - start_time
    logger.info(f"Processed {frame_count} frames in {duration:.2f}s ({frame_count/duration:.2f} fps)")
