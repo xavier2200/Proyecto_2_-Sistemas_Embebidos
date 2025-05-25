@@ -5,7 +5,7 @@ import cv2
 import datetime
 import time
 import csv
-import tensorflow as tflite
+import tflite_runtime.interpreter as tflite
 from BlazeFaceDetection.blazeFaceDetector import blazeFaceDetector
 ##For face detection model
 scoreThreshold = 0.7
@@ -18,7 +18,7 @@ faceDetector = blazeFaceDetector(modelType, scoreThreshold, iouThreshold)
 
 # Cargar modelo
 print("Cargando modelo...")
-interpreter = tflite.lite.Interpreter(model_path="./model.tflite")
+interpreter = tflite.Interpreter(model_path="./model.tflite")
 interpreter.allocate_tensors()
 
 input_details = interpreter.get_input_details()
