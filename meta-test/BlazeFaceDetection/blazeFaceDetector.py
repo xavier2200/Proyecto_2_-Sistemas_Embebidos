@@ -1,7 +1,8 @@
 import time
 import cv2
 import numpy as np
-import tflite_runtime.interpreter as tf
+# import tensorflow as tf # Remove this line
+from tflite_runtime.interpreter import Interpreter # Import from tflite_runtime
 from BlazeFaceDetection.blazeFaceUtils import gen_anchors, SsdAnchorsCalculatorOptions
 
 KEY_POINT_SIZE = 6
@@ -26,9 +27,9 @@ class blazeFaceDetector():
 
 	def initializeModel(self, type):
 		if type == "front":
-			self.interpreter = tf.Interpreter(model_path="models/face_detection_front.tflite")
+			self.interpreter = Interpreter(model_path="models/face_detection_front.tflite")
 		elif type =="back":
-			self.interpreter = tf.Interpreter(model_path="models/face_detection_back.tflite")
+			self.interpreter = Interpreter(model_path="models/face_detection_back.tflite")
 		self.interpreter.allocate_tensors()
 
 		# Get model info
@@ -166,12 +167,20 @@ class blazeFaceDetector():
 	def prepareInputForInference(self, image):
 		img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 		self.img_height, self.img_width, self.img_channels = img.shape
+
+		# Input values should be from -1 to 1 with a size of 128 x 128 pixels for the fornt model
+		# and 256 x 256 pixels for the back model
 		img = img / 255.0
-		img_resized = cv2.resize(img, (self.inputWidth, self.inputHeight))
-		img_input = (img_resized - 0.5) / 0.5
-		reshape_img = img_input.reshape(1, self.inputHeight, self.inputWidth, self.channels)
-		# En lugar de tf.convert_to_tensor, usamos numpy float32 array
+		# Use cv2.resize instead of tf.image.resize
+		img_resized = cv2.resize(img, (self.inputWidth, self.inputHeight), interpolation=cv2.INTER_LINEAR)
+		img_input = img_resized
+		img_input = (img_input - 0.5) / 0.5
+
+		# Adjust matrix dimenstions
+		reshape_img = img_input.reshape(1,self.inputHeight,self.inputWidth,self.channels)
+		# No need to convert to tf.convert_to_tensor, it's already a numpy array
 		tensor = reshape_img.astype(np.float32)
+
 		return tensor
 
 	def inference(self, input_tensor):
@@ -232,28 +241,57 @@ class blazeFaceDetector():
 		return scores, goodDetections
 
 	def filterWithNonMaxSupression(self, boxes, keypoints, scores):
-			# Convertir boxes a formato (x, y, w, h) para OpenCV NMS
-			boxes_xywh = []
-			for box in boxes:
-				x1, y1, x2, y2 = box
-				x = int(x1 * self.inputWidth)
-				y = int(y1 * self.inputHeight)
-				w = int((x2 - x1) * self.inputWidth)
-				h = int((y2 - y1) * self.inputHeight)
-				boxes_xywh.append([x, y, w, h])
+		# Filter based on non max suppression
+		# Replace tf.image.non_max_suppression with a numpy-based equivalent
+		# You'll need to implement or use a NMS function compatible with numpy
+		selected_indices = self._non_max_suppression_fast(boxes, scores, self.iouThreshold, MAX_FACE_NUM)
 
-			scores_list = scores.tolist()
-			indices = cv2.dnn.NMSBoxes(boxes_xywh, scores_list, score_threshold=self.scoreThreshold, nms_threshold=self.iouThreshold)
+		filtered_boxes = boxes[selected_indices]
+		filtered_keypoints = keypoints[selected_indices]
+		filtered_scores = scores[selected_indices]
 
-			if len(indices) == 0:
-				return Results(np.array([]), np.array([]), np.array([]))
+		detectionResults = Results(filtered_boxes, filtered_keypoints, filtered_scores)
+		return detectionResults
 
-			indices = indices.flatten()
-			filtered_boxes = boxes[indices]
-			filtered_keypoints = keypoints[indices]
-			filtered_scores = scores[indices]
+	# Helper function for Non-Maximum Suppression
+	def _non_max_suppression_fast(self, boxes, scores, iou_threshold, max_output_size):
+		if len(boxes) == 0:
+			return []
 
-			return Results(filtered_boxes, filtered_keypoints, filtered_scores)
+		# Grab the coordinates of the bounding boxes
+		x1 = boxes[:, 0]
+		y1 = boxes[:, 1]
+		x2 = boxes[:, 2]
+		y2 = boxes[:, 3]
+
+		# Compute the area of the bounding boxes and sort the detections by score
+		areas = (x2 - x1 + 1) * (y2 - y1 + 1)
+		order = scores.argsort()[::-1]
+
+		keep = []
+		while len(order) > 0 and len(keep) < max_output_size:
+			i = order[0]
+			keep.append(i)
+
+			# Compute the coordinates of the intersection rectangle
+			xx1 = np.maximum(x1[i], x1[order[1:]])
+			yy1 = np.maximum(y1[i], y1[order[1:]])
+			xx2 = np.minimum(x2[i], x2[order[1:]])
+			yy2 = np.minimum(y2[i], y2[order[1:]])
+
+			# Compute the width and height of the intersection rectangle
+			w = np.maximum(0, xx2 - xx1 + 1)
+			h = np.maximum(0, yy2 - yy1 + 1)
+
+			# Compute the ratio of overlap
+			overlap = (w * h) / areas[order[1:]]
+
+			# Delete all indexes from the index list that have
+			# Intersection over Union greater than the threshold
+			inds = np.where(overlap <= iou_threshold)[0]
+			order = order[inds + 1]
+
+		return keep
 
 class Results:
 	def __init__(self, boxes, keypoints, scores):
