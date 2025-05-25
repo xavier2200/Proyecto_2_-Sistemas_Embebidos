@@ -98,6 +98,39 @@ class blazeFaceDetector():
 		# 						,cv2.FONT_HERSHEY_SIMPLEX, 1, (22, 250, 22), 2)
 
 		return img
+	
+	def image_resize(self, img, results):
+
+		boundingBoxes = results.boxes
+		keypoints = results.keypoints
+		scores = results.scores
+		if len(boundingBoxes)==0:
+			gray = np.zeros(np.shape(img), dtype=np.uint8)
+		
+
+		# Add bounding boxes and keypoints
+		elif scores[0] > 0.6:
+			boundingBox = boundingBoxes[0]
+			x1 = (self.img_width * boundingBox[0]).astype(int)
+			x2 = (self.img_width * boundingBox[2]).astype(int)
+			y1 = (self.img_height * boundingBox[1]).astype(int)
+			y2 = (self.img_height * boundingBox[3]).astype(int)
+
+			if x1<0:
+				x1=abs(x1)+1
+			if y1<0:
+				y1=abs(y1)+1
+
+			gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+			gray =gray[y1:y2, x1:x2]
+		
+		else:
+			gray = np.zeros(np.shape(img), dtype=np.uint8)
+		
+		gray = cv2.resize(gray, (48, 48))
+		return gray
+
+		
 
 	def getModelInputDetails(self):
 		self.input_details = self.interpreter.get_input_details()

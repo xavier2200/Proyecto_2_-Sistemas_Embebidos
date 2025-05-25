@@ -11,6 +11,7 @@ faceDetector = blazeFaceDetector(modelType, scoreThreshold, iouThreshold)
 # Initialize webcam
 camera = cv2.VideoCapture(0)
 cv2.namedWindow("detections", cv2.WINDOW_NORMAL) 
+cv2.namedWindow("face",cv2.WINDOW_NORMAL)
 while True:
 
 	# Read frame from the webcam
@@ -18,11 +19,13 @@ while True:
 
 	# Detect faces
 	detectionResults = faceDetector.detectFaces(img)
-
+    
 	# Draw detections
+	img_face = faceDetector.image_resize(img,detectionResults)
 	img_plot = faceDetector.drawDetections(img, detectionResults)
 	cv2.imshow("detections", img_plot)
-
+	cv2.imshow("face", img_face)
+    
 	# Press key q to stop
 	if cv2.waitKey(1) == ord('q'):
 		break
