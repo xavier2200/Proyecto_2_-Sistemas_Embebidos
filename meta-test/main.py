@@ -3,9 +3,9 @@ import numpy as np
 import cv2
 import datetime
 import time
-import tflite_runtime.interpreter as tflite
+import tensorflow as tf
 
-Interpreter = tflite.Interpreter(model_path="./model.tflite")
+Interpreter = tf.lite.Interpreter(model_path="./model.tflite")
 Interpreter.allocate_tensors()
 
 input_details = Interpreter.get_input_details()
