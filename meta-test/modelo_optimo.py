@@ -80,30 +80,43 @@ try:
         detectionResults = faceDetector.detectFaces(img)
         #llamar a main.py
         face = faceDetector.image_resize(img,detectionResults)
-        face = np.expand_dims(np.expand_dims(face, -1), 0)
-        face = np.array(face, dtype='f')
-        # Realizar predicción de emoción
-        interpreter.set_tensor(input_details[0]['index'], face)
-        interpreter.invoke()
-        output_data = interpreter.get_tensor(output_details[0]['index'])
-        
-        # Obtener emoción predicha
-        maxindex = int(np.argmax(output_data))
-        confidence = float(np.max(output_data))
-        current_emotion = emotion_dict[maxindex]
-        
-        # Registrar resultado en CSV cada segundo o cuando cambie la emoción
-        if (time.time() - emotion_start_time >= 1.0) or (current_emotion != last_emotion):
-            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        if not(np.all(face==0)):
+            face = np.expand_dims(np.expand_dims(face, -1), 0)
+            face = np.array(face, dtype='f')
+            # Realizar predicción de emoción
+            interpreter.set_tensor(input_details[0]['index'], face)
+            interpreter.invoke()
+            output_data = interpreter.get_tensor(output_details[0]['index'])
             
-            # Escribir al CSV
-            csv_writer.writerow([timestamp, current_emotion, f"{confidence:.3f}"])
-            csv_file.flush()  # Asegurar que se escriba inmediatamente
+            # Obtener emoción predicha
+            maxindex = int(np.argmax(output_data))
+            confidence = float(np.max(output_data))
+            current_emotion = emotion_dict[maxindex]
             
-            emotion_start_time = time.time()
-            last_emotion = current_emotion
-            print(f"[{timestamp}] Emoción: {current_emotion}")
-        
+            # Registrar resultado en CSV cada segundo o cuando cambie la emoción
+            if (time.time() - emotion_start_time >= 1.0) or (current_emotion != last_emotion):
+                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                
+                # Escribir al CSV
+                csv_writer.writerow([timestamp, current_emotion, f"{confidence:.3f}"])
+                csv_file.flush()  # Asegurar que se escriba inmediatamente
+                
+                emotion_start_time = time.time()
+                last_emotion = current_emotion
+                print(f"[{timestamp}] Emoción: {current_emotion}")
+        else:
+            if (time.time() - emotion_start_time >= 1.0) or (current_emotion != last_emotion):
+                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                
+                # Escribir al CSV
+                csv_writer.writerow([timestamp, "No Face", f"0"])
+                csv_file.flush()  # Asegurar que se escriba inmediatamente
+                
+                emotion_start_time = time.time()
+                last_emotion = current_emotion
+                print(f"[{timestamp}] Emoción: No Face")
+            
+            
         # Control de FPS (reducir carga CPU)
         time.sleep(0.5)  # ~2 FPS
 

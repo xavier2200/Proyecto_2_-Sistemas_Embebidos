@@ -105,7 +105,7 @@ class blazeFaceDetector():
 		keypoints = results.keypoints
 		scores = results.scores
 		if len(boundingBoxes)==0:
-			gray = np.zeros(np.shape(img), dtype=np.uint8)
+			gray = np.zeros((48,48), dtype=np.uint8)
 		
 
 		# Add bounding boxes and keypoints
@@ -125,7 +125,7 @@ class blazeFaceDetector():
 			gray =gray[y1:y2, x1:x2]
 		
 		else:
-			gray = np.zeros(np.shape(img), dtype=np.uint8)
+			gray = np.zeros((48,48), dtype=np.uint8)
 		
 		gray = cv2.resize(gray, (48, 48))
 		return gray
