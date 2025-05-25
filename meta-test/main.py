@@ -3,9 +3,9 @@ import numpy as np
 import cv2
 import datetime
 import time
-import tensorflow as tf
+import tflite_runtime.interpreter as tflite
 
-Interpreter = tf.lite.Interpreter(model_path="./model.tflite")
+Interpreter = tflite.Interpreter(model_path="./model.tflite")
 Interpreter.allocate_tensors()
 
 input_details = Interpreter.get_input_details()
@@ -32,7 +32,7 @@ while True:
         ret, frame = cap.read()
         if not ret:
             break
-        facecasc = cv2.CascadeClassifier('cascade_frontalface_default.xml')
+        facecasc = cv2.CascadeClassifier('./cascade_frontalface_default.xml')
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         faces = facecasc.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5)
 
