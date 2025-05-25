@@ -1,7 +1,7 @@
 import time
 import cv2
 import numpy as np
-import tensorflow as tf
+import tflite_runtime.interpreter as tf
 from BlazeFaceDetection.blazeFaceUtils import gen_anchors, SsdAnchorsCalculatorOptions
 
 KEY_POINT_SIZE = 6
@@ -26,9 +26,9 @@ class blazeFaceDetector():
 
 	def initializeModel(self, type):
 		if type == "front":
-			self.interpreter = tf.lite.Interpreter(model_path="models/face_detection_front.tflite")
+			self.interpreter = tf.Interpreter(model_path="models/face_detection_front.tflite")
 		elif type =="back":
-			self.interpreter = tf.lite.Interpreter(model_path="models/face_detection_back.tflite")
+			self.interpreter = tf.Interpreter(model_path="models/face_detection_back.tflite")
 		self.interpreter.allocate_tensors()
 
 		# Get model info
@@ -166,19 +166,12 @@ class blazeFaceDetector():
 	def prepareInputForInference(self, image):
 		img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 		self.img_height, self.img_width, self.img_channels = img.shape
-
-		# Input values should be from -1 to 1 with a size of 128 x 128 pixels for the fornt model
-		# and 256 x 256 pixels for the back model
 		img = img / 255.0
-		img_resized = tf.image.resize(img, [self.inputHeight,self.inputWidth], 
-									method='bicubic', preserve_aspect_ratio=False)
-		img_input = img_resized.numpy()
-		img_input = (img_input - 0.5) / 0.5
-
-		# Adjust matrix dimenstions
-		reshape_img = img_input.reshape(1,self.inputHeight,self.inputWidth,self.channels)
-		tensor = tf.convert_to_tensor(reshape_img, dtype=tf.float32)
-
+		img_resized = cv2.resize(img, (self.inputWidth, self.inputHeight))
+		img_input = (img_resized - 0.5) / 0.5
+		reshape_img = img_input.reshape(1, self.inputHeight, self.inputWidth, self.channels)
+		# En lugar de tf.convert_to_tensor, usamos numpy float32 array
+		tensor = reshape_img.astype(np.float32)
 		return tensor
 
 	def inference(self, input_tensor):
@@ -239,14 +232,28 @@ class blazeFaceDetector():
 		return scores, goodDetections
 
 	def filterWithNonMaxSupression(self, boxes, keypoints, scores):
-		# Filter based on non max suppression
-		selected_indices = tf.image.non_max_suppression(boxes, scores, MAX_FACE_NUM, self.iouThreshold)
-		filtered_boxes = tf.gather(boxes, selected_indices).numpy()
-		filtered_keypoints = tf.gather(keypoints, selected_indices).numpy()
-		filtered_scores = tf.gather(scores, selected_indices).numpy()
+			# Convertir boxes a formato (x, y, w, h) para OpenCV NMS
+			boxes_xywh = []
+			for box in boxes:
+				x1, y1, x2, y2 = box
+				x = int(x1 * self.inputWidth)
+				y = int(y1 * self.inputHeight)
+				w = int((x2 - x1) * self.inputWidth)
+				h = int((y2 - y1) * self.inputHeight)
+				boxes_xywh.append([x, y, w, h])
 
-		detectionResults = Results(filtered_boxes, filtered_keypoints, filtered_scores)
-		return detectionResults
+			scores_list = scores.tolist()
+			indices = cv2.dnn.NMSBoxes(boxes_xywh, scores_list, score_threshold=self.scoreThreshold, nms_threshold=self.iouThreshold)
+
+			if len(indices) == 0:
+				return Results(np.array([]), np.array([]), np.array([]))
+
+			indices = indices.flatten()
+			filtered_boxes = boxes[indices]
+			filtered_keypoints = keypoints[indices]
+			filtered_scores = scores[indices]
+
+			return Results(filtered_boxes, filtered_keypoints, filtered_scores)
 
 class Results:
 	def __init__(self, boxes, keypoints, scores):
