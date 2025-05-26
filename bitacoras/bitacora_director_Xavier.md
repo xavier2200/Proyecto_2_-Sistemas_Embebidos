@@ -26,3 +26,12 @@
 
 - Consulto sobre el estado de la busqueda del modelo de deteccion de emociones.
 - Asigno a Julio la tarea de probar los modelos que se encuentre
+
+## 22 de mayo, 2025
+
+- Asigno la tarea a Julio de hacer la interfaz grafica
+- Le solicité a Julio la correccion del modelo
+
+## 23 de mayo, 2025
+
+- No recibo actualizaciones de las tareas asignadas a Julio
