@@ -105,16 +105,17 @@ try:
                 last_emotion = current_emotion
                 print(f"[{timestamp}] Emoción: {current_emotion}")
         else:
+            current_emotion = "No Face"
             if (time.time() - emotion_start_time >= 1.0) or (current_emotion != last_emotion):
                 timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 
                 # Escribir al CSV
-                csv_writer.writerow([timestamp, "No Face", f"0"])
+                csv_writer.writerow([timestamp, current_emotion, f"0"])
                 csv_file.flush()  # Asegurar que se escriba inmediatamente
                 
                 emotion_start_time = time.time()
                 last_emotion = current_emotion
-                print(f"[{timestamp}] Emoción: No Face")
+                print(f"[{timestamp}] Emoción: {current_emotion}")
             
             
         # Control de FPS (reducir carga CPU)
