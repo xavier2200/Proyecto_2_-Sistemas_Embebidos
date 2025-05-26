@@ -1,7 +1,7 @@
 SUMMARY = "Detector de emociones con TensorFlow Lite"
 LICENSE = "CLOSED"
 
-SRC_URI = "file://emodetec"
+SRC_URI = "file://source"
 
 S = "${WORKDIR}"
 
