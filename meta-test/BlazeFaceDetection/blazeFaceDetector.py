@@ -2,7 +2,7 @@ import time
 import cv2
 import numpy as np
 # import tensorflow as tf # Remove this line
-from tflite_runtime.interpreter import Interpreter # Import from tflite_runtime
+import tensorflow as tf # Import from tflite_runtime
 from BlazeFaceDetection.blazeFaceUtils import gen_anchors, SsdAnchorsCalculatorOptions
 
 KEY_POINT_SIZE = 6
@@ -27,9 +27,9 @@ class blazeFaceDetector():
 
 	def initializeModel(self, type):
 		if type == "front":
-			self.interpreter = Interpreter(model_path="models/face_detection_front.tflite")
+			self.interpreter = tf.lite.Interpreter(model_path="models/face_detection_front.tflite")
 		elif type =="back":
-			self.interpreter = Interpreter(model_path="models/face_detection_back.tflite")
+			self.interpreter = tf.lite.Interpreter(model_path="models/face_detection_back.tflite")
 		self.interpreter.allocate_tensors()
 
 		# Get model info
@@ -128,7 +128,7 @@ class blazeFaceDetector():
 		else:
 			gray = np.zeros((48,48), dtype=np.uint8)
 		
-		gray = cv2.resize(gray, (48, 48))
+		gray = cv2.resize(gray, (480, 480))
 		return gray
 
 		
