@@ -50,3 +50,7 @@
 - Se realizó la capa personalizada
 - Se realizaron pruebas
 - Se dio fin al proyecto sin la interfaz grafica realizada
+
+## 30 de mayo, 2025
+
+- Se realizó la interfaz gráfica
