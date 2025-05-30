@@ -37,22 +37,25 @@ class VideoInterface:
     def start_video(self):
         if not self.running:
             self.running = True
-            self.cap = cv2.VideoCapture(0)
-            self.video_thread = threading.Thread(target=self.update_video)
-            self.video_thread.start()
-            self.ejecutar_remoto("python3 modelo_optimo.py &")
+            self.cap = cv2.VideoCapture("./video_xavier.mp4")
+            self.update_video()  # no thread
+            threading.Thread(target=self.ejecutar_remoto, args=("python3 modelo_optimo.py &",), daemon=True).start()
 
     def update_video(self):
-        while self.running:
+        if self.running and self.cap:
             ret, frame = self.cap.read()
             if ret:
                 frame = cv2.resize(frame, (640, 480))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 img = Image.fromarray(frame)
                 imgtk = ImageTk.PhotoImage(image=img)
-                self.video_label.imgtk = imgtk
+                self.video_label.imgtk = imgtk  # Keep reference
                 self.video_label.config(image=imgtk)
-            time.sleep(0.03)
+            else:
+                self.pause_video()
+
+        self.video_label.after(30, self.update_video)
+            
 
     def pause_video(self):
         if self.running:
